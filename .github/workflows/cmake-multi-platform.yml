@@ -1,10 +1,9 @@
-name: CMake Build (Linux & Windows)
+name: Build & Release
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - "v*"
 
 jobs:
   build:
@@ -22,3 +21,10 @@ jobs:
 
       - name: Build
         run: cmake --build build --config Release
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: daysCalc-${{ matrix.os }}
+          path: |
+            build/daysCalc*
