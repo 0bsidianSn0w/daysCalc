@@ -4,21 +4,21 @@
 using namespace std;
 
 //current
-int currentDay;
-int currentMonth;
-int currentYear;
+int firstDay;
+int firstMonth;
+int firstYear;
 
 // User
-int chosenDay;
-int chosenMonth;
-int chosenYear;
+int secondDay;
+int secondMonth;
+int secondYear;
 //flags
 bool monthsValid = { false };
 bool daysValid { false };
-int daysInChosenMonth { daysInMonth(chosenMonth, chosenYear) };
+int daysInChosenMonth { daysInMonth(secondMonth, secondYear) };
 
 void validateMonths() {
-    if ((chosenMonth < 13) && (chosenMonth > 0)) {
+    if (((secondMonth < 13) && (secondMonth > 0)) && ((firstMonth < 13) && firstMonth > 0)) {
         // Input is valid for months :D
         monthsValid = true;
     }
@@ -27,7 +27,7 @@ void validateMonths() {
     }
 }
 void validateDays() {
-    if ((chosenDay > 0) && (chosenDay <= daysInChosenMonth)) {
+    if (((secondDay > 0) && (secondDay <= daysInMonth(secondMonth,secondYear))) && ((firstDay > 0) && (firstDay <= daysInMonth(firstMonth, firstYear)))) {
         daysValid = true;
     }
     else {
@@ -37,19 +37,19 @@ void validateDays() {
 
 int main() {
     cout << "Please enter the numerical forms ONLY for the dates." << endl << endl << "Please enter the day for the first date." << endl << "> ";
-    cin >> chosenDay;
+    cin >> secondDay;
     cout << "Please enter the month for the first date." << endl << "> ";
-    cin >> chosenMonth;
+    cin >> secondMonth;
     cout << "Please enter the year for the first date." << endl << "> ";
-    cin >> chosenYear;
+    cin >> secondYear;
     cout << "Please enter the day for the second date." << endl << "> ";
-    cin >> currentDay;
-    cout << "Please enter the month for the first date." << endl << "> ";
-    cin >> currentMonth;
+    cin >> firstDay;
+    cout << "Please enter the month for the second date." << endl << "> ";
+    cin >> firstMonth;
     cout << "Please enter the year for the second date." << endl << "> ";
-    cin >> currentYear;
+    cin >> firstYear;
     cout << endl << "The number of days between these dates: ";
     validateMonths();
     validateDays();
-    cout << daysBetweenDates(currentDay, currentMonth, currentYear, chosenDay, chosenMonth, chosenYear);
+    cout << daysBetweenDates(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
 }
