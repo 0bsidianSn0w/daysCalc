@@ -75,7 +75,6 @@ int findDaysAcrossMonths(int smallDay, int smallMonth, int smallYear, int bigDay
     int days { 0 };
     // If months & days are the difference
     days += (daysInMonth(smallMonth, smallYear) - smallDay);
-    smallDay = 0;
     smallMonth += 1;
     while (smallMonth != bigMonth) {
         days += daysInMonth(smallMonth, smallYear);
@@ -88,11 +87,11 @@ int findDaysAcrossMonths(int smallDay, int smallMonth, int smallYear, int bigDay
 int findDaysAcrossYears(int smallDay, int smallMonth, int smallYear, int bigDay, int bigMonth, int bigYear) {
     // YEARS ARE THE DIFF
     int days { 0 };
-    days += (daysInMonth(smallMonth, smallYear) - smallDay); // 26
+    days += (daysInMonth(smallMonth, smallYear) - smallDay);
     smallDay = 0;
-    smallMonth += 1; // now its the 0th of DEC 2026
+    smallMonth += 1;
     while (smallMonth != 13) {
-        days += daysInMonth(smallMonth, smallYear); // 26 + 31 = 57
+        days += daysInMonth(smallMonth, smallYear);
         smallMonth += 1;
     }
     smallYear += 1;
