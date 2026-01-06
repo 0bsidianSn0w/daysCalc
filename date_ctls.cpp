@@ -1,6 +1,6 @@
 #include "date_ctls.h"
-
 #include <stdexcept>
+
 bool isLeap(int year) {
     if ((((year % 4) == 0) && !((year % 100) == 0)) || (((year % 4) == 0) && ((year % 100) == 0) && ((year % 400) == 0))) {
         return true;

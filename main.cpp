@@ -1,7 +1,17 @@
 #include <iostream>
 #include <stdexcept>
 #include "date_ctls.h"
+#include <string>
 using namespace std;
+
+string banner = R"(      ██                              ██████             ██
+     ░██            ██   ██          ██░░░░██           ░██
+     ░██  ██████   ░░██ ██   ██████ ██    ░░   ██████   ░██  █████
+  ██████ ░░░░░░██   ░░███   ██░░░░ ░██        ░░░░░░██  ░██ ██░░░██
+ ██░░░██  ███████    ░██   ░░█████ ░██         ███████  ░██░██  ░░
+░██  ░██ ██░░░░██    ██     ░░░░░██░░██    ██ ██░░░░██  ░██░██   ██
+░░██████░░████████  ██      ██████  ░░██████ ░░████████ ███░░█████
+ ░░░░░░  ░░░░░░░░  ░░      ░░░░░░    ░░░░░░   ░░░░░░░░ ░░░  ░░░░░  )";
 
 //current
 int firstDay;
@@ -12,6 +22,7 @@ int firstYear;
 int secondDay;
 int secondMonth;
 int secondYear;
+
 //flags
 bool monthsValid = { false };
 bool daysValid { false };
@@ -23,7 +34,7 @@ void validateMonths() {
         monthsValid = true;
     }
     else {
-        throw runtime_error("Months entered not valid");
+        throw runtime_error("Months entered not valid -- must be in a numerical format.");
     }
 }
 void validateDays() {
@@ -31,11 +42,12 @@ void validateDays() {
         daysValid = true;
     }
     else {
-        throw runtime_error("Number of days is invalid for the month.");
+        throw runtime_error("Number of days is invalid for the month -- must be in a numerical format.");
     }
 }
 
 int main() {
+    cout << banner << endl;
     cout << "Please enter the numerical forms ONLY for the dates." << endl << endl << "Please enter the day for the first date." << endl << "> ";
     cin >> secondDay;
     cout << "Please enter the month for the first date." << endl << "> ";
@@ -49,7 +61,9 @@ int main() {
     cout << "Please enter the year for the second date." << endl << "> ";
     cin >> firstYear;
     cout << endl << "The number of days between these dates: ";
-    validateMonths();
     validateDays();
+    validateMonths();
     cout << daysBetweenDates(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
+    cout << endl;
+    return 0;
 }
