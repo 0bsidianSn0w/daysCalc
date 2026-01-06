@@ -4,6 +4,8 @@
 #include <string>
 using namespace std;
 
+
+
 string banner = R"(      ██                              ██████             ██
      ░██            ██   ██          ██░░░░██           ░██
      ░██  ██████   ░░██ ██   ██████ ██    ░░   ██████   ░██  █████
@@ -13,12 +15,10 @@ string banner = R"(      ██                              ██████ 
 ░░██████░░████████  ██      ██████  ░░██████ ░░████████ ███░░█████
  ░░░░░░  ░░░░░░░░  ░░      ░░░░░░    ░░░░░░   ░░░░░░░░ ░░░  ░░░░░  )";
 
-//current
+//Values
 int firstDay;
 int firstMonth;
 int firstYear;
-
-// User
 int secondDay;
 int secondMonth;
 int secondYear;
@@ -27,43 +27,50 @@ int secondYear;
 bool monthsValid = { false };
 bool daysValid { false };
 int daysInChosenMonth { daysInMonth(secondMonth, secondYear) };
+int utilWanted;
 
-void validateMonths() {
-    if (((secondMonth < 13) && (secondMonth > 0)) && ((firstMonth < 13) && firstMonth > 0)) {
-        // Input is valid for months :D
-        monthsValid = true;
-    }
-    else {
-        throw runtime_error("Months entered not valid -- must be in a numerical format.");
-    }
-}
-void validateDays() {
-    if (((secondDay > 0) && (secondDay <= daysInMonth(secondMonth,secondYear))) && ((firstDay > 0) && (firstDay <= daysInMonth(firstMonth, firstYear)))) {
-        daysValid = true;
-    }
-    else {
-        throw runtime_error("Number of days is invalid for the month -- must be in a numerical format.");
-    }
+void daysBetweenDatesMAIN() {
+    cout << "Please enter the numerical forms ONLY for the dates." << endl << endl;
+    cout << "Please enter the day for the first date." << endl << "> ";
+    cin >> firstDay;
+    cout << "Please enter the month for the first date." << endl << "> ";
+    cin >> firstMonth;
+    cout << "Please enter the year for the first date." << endl << "> ";
+    cin >> firstYear;
+    cout << "Please enter the day for the second date." << endl << "> ";
+    cin >> secondDay;
+    cout << "Please enter the month for the second date." << endl << "> ";
+    cin >> secondMonth;
+    cout << "Please enter the year for the second date." << endl << "> ";
+    cin >> secondYear;
+    cout << endl << "The number of days between these dates: ";
+    if (!dateValid(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear)) { throw runtime_error("Date not valid"); };
+    cout << daysBetweenDates(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
+    cout << endl << "This does not include the end date." << endl;
 }
 
 int main() {
     cout << banner << endl;
-    cout << "Please enter the numerical forms ONLY for the dates." << endl << endl << "Please enter the day for the first date." << endl << "> ";
-    cin >> secondDay;
-    cout << "Please enter the month for the first date." << endl << "> ";
-    cin >> secondMonth;
-    cout << "Please enter the year for the first date." << endl << "> ";
-    cin >> secondYear;
-    cout << "Please enter the day for the second date." << endl << "> ";
-    cin >> firstDay;
-    cout << "Please enter the month for the second date." << endl << "> ";
-    cin >> firstMonth;
-    cout << "Please enter the year for the second date." << endl << "> ";
-    cin >> firstYear;
-    cout << endl << "The number of days between these dates: ";
-    validateDays();
-    validateMonths();
-    cout << daysBetweenDates(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear);
-    cout << endl;
+    cout << "Welcome to my days calculator!" << endl;
+    cout << "Please enter the number for the utility you would like to use" << endl;
+    cout << "1 - Days between dates" << endl << "2 - Leap year test." << endl << "> ";
+    cin >> utilWanted;
+    if (utilWanted == 1) {
+        daysBetweenDatesMAIN();
+    }
+    else if (utilWanted == 2) {
+        int year;
+        cout << "What year would you like to test?" << endl << "> ";
+        cin >> year;
+        if (isLeap(year)) {
+            cout << "The year " << year << " is a leap year." << endl;
+        }
+        else {
+            cout << "The year " << year << " isn't a leap year." << endl;
+        }
+    }
+    else {
+        throw runtime_error("The hell you doing??");
+    }
     return 0;
 }

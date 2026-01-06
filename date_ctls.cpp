@@ -35,6 +35,16 @@ int daysInMonth(int months, int year) {
     }
 }
 
+int dateValid(int firstDay, int firstMonth, int firstYear, int secondDay, int secondMonth, int secondYear) {
+    if ((((secondDay > 0) && (secondDay <= daysInMonth(secondMonth, secondYear))) && (
+             (firstDay > 0) && (firstDay <= daysInMonth(firstMonth, firstYear))))
+        && ((secondMonth < 13) && (secondMonth > 0)) && (firstMonth < 13) && firstMonth > 0) {
+        return true;
+        }
+    else {
+        return false;
+    }
+}
 
 int daysBetweenDates(int currentDay, int currentMonth, int currentYear, int chosenDay, int chosenMonth, int chosenYear) {
     if ((chosenMonth == currentMonth) && (chosenDay == currentDay) && (chosenYear == currentYear)) {
@@ -114,3 +124,4 @@ int findDaysAcrossYears(int smallDay, int smallMonth, int smallYear, int bigDay,
     }
     return days;
 }
+
