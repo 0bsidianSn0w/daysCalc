@@ -1,6 +1,6 @@
 #include "date_ctls.h"
 #include <stdexcept>
-
+#include <cmath>
 bool isLeap(int year) {
     if ((((year % 4) == 0) && !((year % 100) == 0)) || (((year % 4) == 0) && ((year % 100) == 0) && ((year % 400) == 0))) {
         return true;
@@ -125,3 +125,12 @@ int findDaysAcrossYears(int smallDay, int smallMonth, int smallYear, int bigDay,
     return days;
 }
 
+int dayOfTheWeek(int day, int month, int year) {
+    if (month == 1 || month == 2) {
+        month += 12;
+        year -= 1;
+    }
+    int h = (day + floor((13 * (month + 1) / 5)) + (year % 100) + floor(((year % 100) / 4)) + floor(floor((year / 100)) / 4)
+         + (5 * floor((year / 100))));
+    return (((h%7)+5)%7 + 1);
+}
