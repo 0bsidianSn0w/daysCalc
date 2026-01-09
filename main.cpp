@@ -5,7 +5,6 @@
 using namespace std;
 
 
-
 string banner = R"(     _                  ____      _
   __| | __ _ _   _ ___ / ___|__ _| | ___
  / _` |/ _` | | | / __| |   / _` | |/ __|
@@ -89,19 +88,84 @@ void isLeapMAIN() {
     cout << "What year would you like to test?" << endl << "> ";
     cin >> year;
     if (isLeap(year)) {
-        cout << "The year " << year << " is a leap year." << endl;
+        cout << year << " is a leap year." << endl;
     }
     else {
-        cout << "The year " << year << " isn't a leap year." << endl;
+        cout << year << " isn't a leap year." << endl;
     }
 }
+void calenderPrintMAIN(int month, int year) {
+    string calenderHeader {"| Mon | Tue | Wed | Thu | Fri | Sat | Sun |"};
+    int days { daysInMonth(month, year)};
+    int day { 1 };
+    int column { 1 };
+    int startColumn { dayOfTheWeek(day, month, year) };
+    string ending;
+    //1st 2nd 3rd 4th 5th 6th 7th 8th 9th 10th 11th 12th
+    switch (month) {
+        case 1:
+            ending = "st";
+            break;
+        case 2:
+            ending = "nd";
+            break;
+        case 3:
+            ending = "rd";
+            break;
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+            ending = "th";
+            break;
+        default:
+            throw runtime_error("Invalid month passed to switch statement in calenderGen funct.");
+    }
+    cout << "This is the calender for the " << month << ending << " month of " << year << "." << endl;
+    cout << calenderHeader << endl << "|";
+    cout.flush();
+
+    for (; column <= startColumn; column ++) {
+        cout << "  -  |";
+    }
+    for (; day <= days; day ++) {
+        if (column == 7) {
+            if (day >= 10) {
+                cout << "  " << day << " |"  << endl;
+            }
+            else {
+                cout << "  " << day << "  |" << endl;
+            }
+            cout << "|";
+            column = 1;
+        }
+        else {
+            if (day >= 10) {
+                cout << "  " << day << " |";
+            }
+            else {
+                cout << "  " << day << "  |";
+            }
+            column += 1;
+        }
+    }
+    cout << endl << endl;
+}
+
+
 
 int main() {
     cout << banner << endl;
     cout << "Welcome to my days calculator!" << endl;
     while (true) {
         cout << "Please enter the number for the utility you would like to use" << endl;
-        cout << "1 - Days between dates" << endl << "2 - Leap year test." << endl << "3 - What day of the week is $Date?" // << endl << "4 - How many days alive?"
+        cout << "1 - Days between dates." << endl << "2 - Leap year test." << endl << "3 - What day of the week is $Date?"
+        << endl << "4 - Calender Generator (for a month)."
         << endl << "Q - Quit" << endl << "> ";
 
         cin >> utilWanted;
@@ -114,6 +178,15 @@ int main() {
         else if (utilWanted == '3') {
             dayOfTheWeekMAIN();
         }
+        else if (utilWanted == '4') {
+            int month;
+            int year;
+            cout << "Please enter the month's number in the format %M or %MM eg '7' or '12'." << endl << "> ";
+            cin >> month;
+            cout << "Please enter the year in the format %YYYY." << endl << "> ";
+            cin >> year;
+            calenderPrintMAIN(month, year);
+        }
         else if ((utilWanted == 'Q') || (utilWanted == 'q')) {
             cout << endl << "Are you sure you would you like to quit? (Y/n)\n> ";
             cin >> wantsToQuit;
@@ -122,5 +195,6 @@ int main() {
         else {
             throw runtime_error("The hell you doing??");
         }
+        cout << endl << endl;
     }
 }
